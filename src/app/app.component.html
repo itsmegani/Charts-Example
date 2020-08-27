@@ -1,0 +1,112 @@
+<!-- Form Section -->
+<div class="container">
+  <div class="row">
+      <div class="col-md-4">
+        <form [formGroup]="form">
+            <strong>Select monthly revenue</strong>
+            <div class="form-group">
+                <label for="revenue1">January</label>
+                <input id="revenue1" type="text" class="form-control" formControlName="revenue1">
+                <div *ngIf="form.get('revenue1').touched && form.get('revenue1').invalid" class="alert alert-danger">Enter Revenue</div>
+            </div>
+            <div class="form-group">
+                <label for="revenue2">February</label>
+                <input id="revenue2" type="text" class="form-control" formControlName="revenue2">
+                <div *ngIf="form.get('revenue2').touched && form.get('revenue2').invalid" class="alert alert-danger">Enter Revenue</div>
+            </div>
+            <div class="form-group">
+                <label for="revenue3">March</label>
+                <input id="revenue3" type="text" class="form-control" formControlName="revenue3">
+                <div *ngIf="form.get('revenue3').touched && form.get('revenue3').invalid" class="alert alert-danger">Enter Revenue</div>
+            </div>
+        </form>
+      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-4">
+        <form [formGroup]="form">
+          <strong>Select Color</strong>
+            <div class="form-group">
+                <label for="firstColor">Color</label>
+                <select class="form-control" id="sel1" formControlName="firstColor">
+                  <option *ngFor="let color of chartColors" [value]="color">{{color}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="secondColor">Color</label>
+                <select class="form-control" id="sel1" formControlName="secondColor">
+                  <option *ngFor="let color of chartColors" [value]="color">{{color}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="thirdColor">Color</label>
+                <select class="form-control" id="sel1" formControlName="thirdColor">
+                  <option *ngFor="let color of chartColors" [value]="color">{{color}}</option>
+                </select>
+            </div>
+        </form>
+      <div>
+  </div>
+</div>
+
+<!-- Radio button section -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <label id="example-radio-group-label">Graph Type</label>
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group" [(ngModel)]="selectedChart" (change)="onSelectionChange()">
+        <mat-radio-button [disabled]="!this.form.valid" class="example-radio-button" *ngFor="let chart of charts" [value]="chart">
+          {{chart}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+</div>
+
+<!-- Pie Chart -->
+<div class="container" *ngIf="isPieChart">
+  <div class="col-sm-4 text-center bdr">
+    <h5 class="text-center">Market Qtr Report</h5>
+    <canvas baseChart
+          [data]="pieChartData"
+          [labels]="pieChartLabels"
+          [chartType]="pieChartType"
+          [options]="pieChartOptions"
+          [colors]="pieChartColors">
+    </canvas>
+  </div>
+</div>
+
+<!-- Bar Chart -->
+<div class="container" *ngIf="isBarChart">
+  <div class="barChart bdr">
+    <h5 class="text-center">Market Qtr Report</h5>
+    <canvas 
+      baseChart
+      [chartType]="'bar'"
+      [datasets]="chartData"
+      [labels]="labels"
+      [options]="chartOptions"
+      [legend]="false"
+      [colors]="colors">
+    </canvas>
+  </div>
+</div>
+
+<!-- Line Chart-->
+<div class="container line" *ngIf="isLineChart">
+  <div style="width: 40%;" class="bdr">
+    <h5 class="text-center">Market Qtr Report</h5>
+    <canvas
+      baseChart
+      [chartType]="'line'"
+      [datasets]="lineChartData"
+      [labels]="lineChartLabels"
+      [options]="lineChartOptions"
+      [colors]="lineChartColors"
+      [legend]="false">
+    </canvas>
+  </div>
+</div>
+  
